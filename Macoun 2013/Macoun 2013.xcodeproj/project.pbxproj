@@ -23,6 +23,8 @@
 		6200BA2517EED9B600F8C618 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6200BA2417EED9B600F8C618 /* MapViewController.m */; };
 		6200BA2717EEDB6400F8C618 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6200BA2617EEDB6400F8C618 /* MapKit.framework */; };
 		6247074F17EEE1B000A2A82A /* Berlin.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 6247074E17EEE1B000A2A82A /* Berlin.gpx */; };
+		6247075317EEEC2600A2A82A /* DataReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6247075117EEEC2600A2A82A /* DataReader.m */; };
+		6247075617EEEC7100A2A82A /* Annotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6247075517EEEC7100A2A82A /* Annotation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,11 @@
 		6200BA2417EED9B600F8C618 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		6200BA2617EEDB6400F8C618 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6247074E17EEE1B000A2A82A /* Berlin.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Berlin.gpx; path = "Macoun 2013/Berlin.gpx"; sourceTree = "<group>"; };
+		6247075017EEEC2600A2A82A /* DataReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataReader.h; sourceTree = "<group>"; };
+		6247075117EEEC2600A2A82A /* DataReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataReader.m; sourceTree = "<group>"; };
+		6247075217EEEC2600A2A82A /* DataReaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataReaderDelegate.h; sourceTree = "<group>"; };
+		6247075417EEEC7100A2A82A /* Annotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Annotation.h; sourceTree = "<group>"; };
+		6247075517EEEC7100A2A82A /* Annotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Annotation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +130,11 @@
 				6200B9FE17EED8C000F8C618 /* AppDelegate.m */,
 				6200BA2317EED9B600F8C618 /* MapViewController.h */,
 				6200BA2417EED9B600F8C618 /* MapViewController.m */,
+				6247075417EEEC7100A2A82A /* Annotation.h */,
+				6247075517EEEC7100A2A82A /* Annotation.m */,
+				6247075017EEEC2600A2A82A /* DataReader.h */,
+				6247075117EEEC2600A2A82A /* DataReader.m */,
+				6247075217EEEC2600A2A82A /* DataReaderDelegate.h */,
 				6200BA0017EED8C000F8C618 /* Main.storyboard */,
 				6200BA0617EED8C000F8C618 /* Images.xcassets */,
 				6200B9F517EED8C000F8C618 /* Supporting Files */,
@@ -257,6 +269,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6247075617EEEC7100A2A82A /* Annotation.m in Sources */,
+				6247075317EEEC2600A2A82A /* DataReader.m in Sources */,
 				6200B9FF17EED8C000F8C618 /* AppDelegate.m in Sources */,
 				6200B9FB17EED8C000F8C618 /* main.m in Sources */,
 				6200BA2517EED9B600F8C618 /* MapViewController.m in Sources */,
