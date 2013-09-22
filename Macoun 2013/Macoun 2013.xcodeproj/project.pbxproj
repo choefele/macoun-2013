@@ -22,6 +22,7 @@
 		6200BA1A17EED8C000F8C618 /* Macoun_2013Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6200BA1917EED8C000F8C618 /* Macoun_2013Tests.m */; };
 		6200BA2517EED9B600F8C618 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6200BA2417EED9B600F8C618 /* MapViewController.m */; };
 		6200BA2717EEDB6400F8C618 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6200BA2617EEDB6400F8C618 /* MapKit.framework */; };
+		6247074F17EEE1B000A2A82A /* Berlin.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 6247074E17EEE1B000A2A82A /* Berlin.gpx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		6200BA2317EED9B600F8C618 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		6200BA2417EED9B600F8C618 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		6200BA2617EEDB6400F8C618 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		6247074E17EEE1B000A2A82A /* Berlin.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Berlin.gpx; path = "Macoun 2013/Berlin.gpx"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 		6200B9E217EED8C000F8C618 = {
 			isa = PBXGroup;
 			children = (
+				6247074E17EEE1B000A2A82A /* Berlin.gpx */,
 				6200B9F417EED8C000F8C618 /* Macoun 2013 */,
 				6200BA1317EED8C000F8C618 /* Macoun 2013Tests */,
 				6200B9ED17EED8C000F8C618 /* Frameworks */,
@@ -235,6 +238,7 @@
 				6200BA0717EED8C000F8C618 /* Images.xcassets in Resources */,
 				6200B9F917EED8C000F8C618 /* InfoPlist.strings in Resources */,
 				6200BA0217EED8C000F8C618 /* Main.storyboard in Resources */,
+				6247074F17EEE1B000A2A82A /* Berlin.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,6 +468,7 @@
 				6200BA1F17EED8C000F8C618 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6200BA2017EED8C000F8C618 /* Build configuration list for PBXNativeTarget "Macoun 2013Tests" */ = {
 			isa = XCConfigurationList;
@@ -472,6 +477,7 @@
 				6200BA2217EED8C000F8C618 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

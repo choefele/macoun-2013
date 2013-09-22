@@ -14,25 +14,14 @@
 
 @implementation MapViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
+    // Show Berlin on map
+    CLLocationCoordinate2D location = CLLocationCoordinate2DMake(52.516221, 13.377829);
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location, 1000, 1000);
+    self.mapView.region = region;
 }
 
 @end
