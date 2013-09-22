@@ -8,7 +8,7 @@
 
 #import "MapViewController.h"
 
-@interface MapViewController ()
+@interface MapViewController ()<MKMapViewDelegate>
 
 @end
 
@@ -17,6 +17,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.mapView.delegate = self;
     
     // Show Berlin on map
     CLLocationCoordinate2D location = CLLocationCoordinate2DMake(52.516221, 13.377829);
@@ -30,5 +32,35 @@
     annotation.subtitle = @"Brandenburger Tor";
     [self.mapView addAnnotation:annotation];
 }
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    MKAnnotationView *annotationView;
+    
+    if ([annotation isKindOfClass:MKPointAnnotation.class]) {
+        static NSString * const pinIdentifier = @"pinIdentifier";
+        MKPinAnnotationView *pinAnnotationView = (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:pinIdentifier];
+        if (pinAnnotationView == nil) {
+            pinAnnotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pinIdentifier];
+            pinAnnotationView.canShowCallout = YES;
+            
+            UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            pinAnnotationView.rightCalloutAccessoryView = rightButton;
+        }
+        annotationView = pinAnnotationView;
+    }
+    
+    return annotationView;
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+    // Show location in Maps app
+    MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:view.annotation.coordinate addressDictionary:nil];
+    MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
+    mapItem.name = view.annotation.title;
+    [mapItem openInMapsWithLaunchOptions:nil];
+}
+
 
 @end
