@@ -8,7 +8,10 @@
 
 #import "MapViewController.h"
 
-@interface MapViewController ()<MKMapViewDelegate>
+#import "DataReader.h"
+#import "DataReaderDelegate.h"
+
+@interface MapViewController ()<MKMapViewDelegate, DataReaderDelegate>
 
 @end
 
@@ -31,6 +34,11 @@
     annotation.title = @"Berlin";
     annotation.subtitle = @"Brandenburger Tor";
     [self.mapView addAnnotation:annotation];
+    
+    // Add annotations
+    DataReader *dataReader = [[DataReader alloc] init];
+    dataReader.delegate = self;
+    [dataReader startReading];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
@@ -62,5 +70,9 @@
     [mapItem openInMapsWithLaunchOptions:nil];
 }
 
+- (void)dataReader:(DataReader *)dataReader addAnnotations:(NSArray *)annotations
+{
+    [self.mapView addAnnotations:annotations];
+}
 
 @end
