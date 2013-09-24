@@ -25,6 +25,7 @@
 		6247074F17EEE1B000A2A82A /* Berlin.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 6247074E17EEE1B000A2A82A /* Berlin.gpx */; };
 		6247075317EEEC2600A2A82A /* DataReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6247075117EEEC2600A2A82A /* DataReader.m */; };
 		6247075617EEEC7100A2A82A /* Annotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6247075517EEEC7100A2A82A /* Annotation.m */; };
+		6249398617F1A1F3008070AD /* Stolpersteine.json in Resources */ = {isa = PBXBuildFile; fileRef = 6249398517F1A1F3008070AD /* Stolpersteine.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		6247075217EEEC2600A2A82A /* DataReaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataReaderDelegate.h; sourceTree = "<group>"; };
 		6247075417EEEC7100A2A82A /* Annotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Annotation.h; sourceTree = "<group>"; };
 		6247075517EEEC7100A2A82A /* Annotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Annotation.m; sourceTree = "<group>"; };
+		6249398517F1A1F3008070AD /* Stolpersteine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Stolpersteine.json; path = "Macoun 2013/Stolpersteine.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 		6200B9E217EED8C000F8C618 = {
 			isa = PBXGroup;
 			children = (
+				6249398517F1A1F3008070AD /* Stolpersteine.json */,
 				6247074E17EEE1B000A2A82A /* Berlin.gpx */,
 				6200B9F417EED8C000F8C618 /* Macoun 2013 */,
 				6200BA1317EED8C000F8C618 /* Macoun 2013Tests */,
@@ -248,6 +251,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6200BA0717EED8C000F8C618 /* Images.xcassets in Resources */,
+				6249398617F1A1F3008070AD /* Stolpersteine.json in Resources */,
 				6200B9F917EED8C000F8C618 /* InfoPlist.strings in Resources */,
 				6200BA0217EED8C000F8C618 /* Main.storyboard in Resources */,
 				6247074F17EEE1B000A2A82A /* Berlin.gpx in Resources */,
