@@ -19,7 +19,7 @@
 {
     // Parse on background thread
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        NSString *file = [NSBundle.mainBundle pathForResource:@"stolpersteine" ofType:@"json"];
+        NSString *file = [NSBundle.mainBundle pathForResource:@"Stolpersteine" ofType:@"json"];
         NSInputStream *inputStream = [NSInputStream inputStreamWithFileAtPath:file];
         [inputStream open];
         NSArray *dataAsJson = [NSJSONSerialization JSONObjectWithStream:inputStream options:0 error:nil];
