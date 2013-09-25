@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>ClassImplementation</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>- (void)removeAnnotations:(NSSet *)annotations
+{
+    // Animate annotations that get removed
+    for (id&lt;MKAnnotation&gt; annotation in annotations) {
+        MKAnnotationView *annotationView = [self.mapView viewForAnnotation:annotation];
+        [UIView animateWithDuration:0.2 animations:^{
+            annotationView.alpha = 0.0;
+        } completion:^(BOOL finished) {
+            [self.mapView removeAnnotation:annotation];
+        }];
+    }
+}
+
+- (void)didAddAnnotationViews:(NSArray *)annotationViews
+{
+    // Animate annotations that get added
+    for (MKAnnotationView *annotationView in annotationViews)
+    {
+        annotationView.alpha = 0.0;
+        [UIView animateWithDuration:0.2 animations:^{
+            annotationView.alpha = 1.0;
+        }];
+    }
+}
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>23D26A90-7A46-4BE2-9E6E-258C7BC72388</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Animation 1 - remove/add</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

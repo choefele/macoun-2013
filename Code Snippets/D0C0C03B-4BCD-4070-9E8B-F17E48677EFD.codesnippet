@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>TopLevel</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>id&lt;MKAnnotation&gt; MapClusterControllerFindClosestAnnotation(NSSet *annotations, MKMapPoint mapPoint)
+{
+    id&lt;MKAnnotation&gt; closestAnnotation;
+    CLLocationDistance closestDistance = DBL_MAX;
+    for (id&lt;MKAnnotation&gt; annotation in annotations) {
+        MKMapPoint annotationAsMapPoint = MKMapPointForCoordinate(annotation.coordinate);
+        CLLocationDistance distance = MKMetersBetweenMapPoints(mapPoint, annotationAsMapPoint);
+        if (distance &lt; closestDistance) {
+            closestDistance = distance;
+            closestAnnotation = annotation;
+        }
+    }
+    
+    return closestAnnotation;
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>D0C0C03B-4BCD-4070-9E8B-F17E48677EFD</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Clustering 11 - MapClusterControllerFindClosestAnnotation</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

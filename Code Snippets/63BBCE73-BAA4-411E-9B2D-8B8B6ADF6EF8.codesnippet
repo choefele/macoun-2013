@@ -7,17 +7,17 @@
 		<string>ClassImplementation</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>- (void)dataReader:(DataReader *)dataReader addAnnotations:(NSArray *)annotations
+	<string>- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
-    [self.mapView addAnnotations:annotations];
+    [self.mapClusterController updateAnnotationsWithCompletionHandler:NULL];
 }
 </string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>195AF0C9-5B04-49FF-BCC4-8C29BDB32DD3</string>
+	<string>63BBCE73-BAA4-411E-9B2D-8B8B6ADF6EF8</string>
 	<key>IDECodeSnippetLanguage</key>
 	<string>Xcode.SourceCodeLanguage.Objective-C</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>Introduction 6 - addAnnotations</string>
+	<string>Clustering 12 - regionDidChangeAnimated:</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>

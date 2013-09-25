@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>CodeBlock</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// For each cell in the grid, pick one annotation to show
+    while (MKMapRectGetMinY(cellMapRect) &lt; MKMapRectGetMaxY(gridMapRect)) {
+        cellMapRect.origin.x = MKMapRectGetMinX(gridMapRect);
+        
+        while (MKMapRectGetMinX(cellMapRect) &lt; MKMapRectGetMaxX(gridMapRect)) {
+            NSMutableSet *allAnnotationsInCell = [[self.allAnnotationsMapView annotationsInMapRect:cellMapRect] mutableCopy];
+            if (allAnnotationsInCell.count &gt; 0) {
+                NSMutableSet *visibleAnnotationsInCell = [self.mapView annotationsInMapRect:cellMapRect].mutableCopy;
+                MKUserLocation *userLocation = self.mapView.userLocation;
+                if (userLocation) {
+                    [visibleAnnotationsInCell removeObject:userLocation];
+                }
+                
+                MapClusterAnnotation *annotationForCell = MapClusterControllerFindAnnotation(cellMapRect, allAnnotationsInCell, visibleAnnotationsInCell);
+                annotationForCell.annotations = allAnnotationsInCell.allObjects;
+                
+                [visibleAnnotationsInCell removeObject:annotationForCell];
+                [self.mapView removeAnnotations:visibleAnnotationsInCell.allObjects];
+                [self.mapView addAnnotation:annotationForCell];
+            }
+            cellMapRect.origin.x += MKMapRectGetWidth(cellMapRect);
+        }
+        cellMapRect.origin.y += MKMapRectGetWidth(cellMapRect);
+    }</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>EE9E7C14-77A7-44A4-B94B-61B8AB75A4AA</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Clustering 9 - iterate grid rects</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

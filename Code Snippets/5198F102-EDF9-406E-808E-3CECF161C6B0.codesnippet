@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>ClassImplementation</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>- (double)convertPointSize:(double)pointSize toMapPointSizeFromView:(UIView *)view
+{
+    // Convert points to coordinates
+    CLLocationCoordinate2D leftCoordinate = [self.mapView convertPoint:CGPointZero toCoordinateFromView:view];
+    CLLocationCoordinate2D rightCoordinate = [self.mapView convertPoint:CGPointMake(pointSize, 0) toCoordinateFromView:view];
+    
+    // Convert coordinates to map points
+    MKMapPoint leftMapPoint = MKMapPointForCoordinate(leftCoordinate);
+    MKMapPoint rightMapPoint = MKMapPointForCoordinate(rightCoordinate);
+    
+    // Calculate distance between map points
+    double xd = leftMapPoint.x - rightMapPoint.x;
+    double yd = leftMapPoint.y - rightMapPoint.y;
+    double cellSize = sqrt(xd*xd + yd*yd);
+    
+    return cellSize;
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>5198F102-EDF9-406E-808E-3CECF161C6B0</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>iOS 7 - convertPointSize</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

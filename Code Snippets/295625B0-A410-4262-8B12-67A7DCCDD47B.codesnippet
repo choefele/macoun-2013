@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>TopLevel</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>MapClusterAnnotation *MapClusterControllerFindAnnotation(MKMapRect cellMapRect, NSSet *annotations, NSSet *visibleAnnotations)
+{
+    // See if there's already a visible annotation in this cell
+    for (id&lt;MKAnnotation&gt; annotation in annotations) {
+        for (MapClusterAnnotation *visibleAnnotation in visibleAnnotations) {
+            if ([visibleAnnotation.annotations containsObject:annotation]) {
+                return visibleAnnotation;
+            }
+        }
+    }
+    
+    // Otherwise, choose the closest annotation to the center
+    MKMapPoint centerMapPoint = MKMapPointMake(MKMapRectGetMidX(cellMapRect), MKMapRectGetMidY(cellMapRect));
+    id&lt;MKAnnotation&gt; closestAnnotation = MapClusterControllerFindClosestAnnotation(annotations, centerMapPoint);
+    MapClusterAnnotation *annotation = [[MapClusterAnnotation alloc] init];
+    annotation.coordinate = closestAnnotation.coordinate;
+    
+    return annotation;
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>295625B0-A410-4262-8B12-67A7DCCDD47B</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Clustering 10 - MapClusterControllerFindAnnotation</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

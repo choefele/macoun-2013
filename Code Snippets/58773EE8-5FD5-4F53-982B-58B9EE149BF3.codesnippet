@@ -4,20 +4,17 @@
 <dict>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
-		<string>ClassImplementation</string>
+		<string>CodeBlock</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>- (void)dataReader:(DataReader *)dataReader addAnnotations:(NSArray *)annotations
-{
-    [self.mapView addAnnotations:annotations];
-}
-</string>
+	<string>self.mapView = mapView;
+        self.allAnnotationsMapView = [[MKMapView alloc] initWithFrame:CGRectZero];</string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>195AF0C9-5B04-49FF-BCC4-8C29BDB32DD3</string>
+	<string>58773EE8-5FD5-4F53-982B-58B9EE149BF3</string>
 	<key>IDECodeSnippetLanguage</key>
 	<string>Xcode.SourceCodeLanguage.Objective-C</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>Introduction 6 - addAnnotations</string>
+	<string>Clustering 3 - init map views</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>

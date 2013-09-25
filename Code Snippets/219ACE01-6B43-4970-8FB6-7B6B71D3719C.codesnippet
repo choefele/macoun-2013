@@ -7,17 +7,25 @@
 		<string>ClassImplementation</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>- (void)dataReader:(DataReader *)dataReader addAnnotations:(NSArray *)annotations
+	<string>- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id&lt;MKOverlay&gt;)overlay
 {
-    [self.mapView addAnnotations:annotations];
+    MKOverlayView *view;
+    if ([overlay isKindOfClass:MKPolygon.class]) {
+        MKPolygonView *polygonView = [[MKPolygonView alloc] initWithPolygon:(MKPolygon *)overlay];
+        polygonView.strokeColor = [UIColor.blueColor colorWithAlphaComponent:0.7];
+        polygonView.lineWidth = 1;
+        view = polygonView;
+    }
+    
+    return view;
 }
 </string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>195AF0C9-5B04-49FF-BCC4-8C29BDB32DD3</string>
+	<string>219ACE01-6B43-4970-8FB6-7B6B71D3719C</string>
 	<key>IDECodeSnippetLanguage</key>
 	<string>Xcode.SourceCodeLanguage.Objective-C</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>Introduction 6 - addAnnotations</string>
+	<string>Clustering 15 - viewForOverlay:</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>
