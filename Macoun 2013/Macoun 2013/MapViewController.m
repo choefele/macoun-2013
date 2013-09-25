@@ -31,12 +31,12 @@
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location, 1000, 1000);
     self.mapView.region = region;
     
-    // Add pin for Brandenburg Gate
-    MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
-    annotation.coordinate = location;
-    annotation.title = @"Berlin";
-    annotation.subtitle = @"Brandenburger Tor";
-    [self.mapView addAnnotation:annotation];
+//    // Add pin for Brandenburg Gate
+//    MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+//    annotation.coordinate = location;
+//    annotation.title = @"Berlin";
+//    annotation.subtitle = @"Brandenburger Tor";
+//    [self.mapView addAnnotation:annotation];
     
     // Add annotations
     DataReader *dataReader = [[DataReader alloc] init];
@@ -45,6 +45,11 @@
     
     // Create cluster controller
     self.mapClusterController = [[MapClusterController alloc] initWithMapView:self.mapView];
+}
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+    [self.mapClusterController updateAnnotationsWithCompletionHandler:NULL];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation

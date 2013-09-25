@@ -45,6 +45,42 @@ MKMapRect MapClusterControllerAlignToCellSize(MKMapRect mapRect, double cellSize
     return MKMapRectMake(startX, startY, endX - startX, endY - startY);
 }
 
+id<MKAnnotation> MapClusterControllerFindClosestAnnotation(NSSet *annotations, MKMapPoint mapPoint)
+{
+    id<MKAnnotation> closestAnnotation;
+    CLLocationDistance closestDistance = DBL_MAX;
+    for (id<MKAnnotation> annotation in annotations) {
+        MKMapPoint annotationAsMapPoint = MKMapPointForCoordinate(annotation.coordinate);
+        CLLocationDistance distance = MKMetersBetweenMapPoints(mapPoint, annotationAsMapPoint);
+        if (distance < closestDistance) {
+            closestDistance = distance;
+            closestAnnotation = annotation;
+        }
+    }
+    
+    return closestAnnotation;
+}
+
+MapClusterAnnotation *MapClusterControllerFindAnnotation(MKMapRect cellMapRect, NSSet *annotations, NSSet *visibleAnnotations)
+{
+    // See if there's already a visible annotation in this cell
+    for (id<MKAnnotation> annotation in annotations) {
+        for (MapClusterAnnotation *visibleAnnotation in visibleAnnotations) {
+            if ([visibleAnnotation.annotations containsObject:annotation]) {
+                return visibleAnnotation;
+            }
+        }
+    }
+    
+    // Otherwise, choose the closest annotation to the center
+    MKMapPoint centerMapPoint = MKMapPointMake(MKMapRectGetMidX(cellMapRect), MKMapRectGetMidY(cellMapRect));
+    id<MKAnnotation> closestAnnotation = MapClusterControllerFindClosestAnnotation(annotations, centerMapPoint);
+    MapClusterAnnotation *annotation = [[MapClusterAnnotation alloc] init];
+    annotation.coordinate = closestAnnotation.coordinate;
+    
+    return annotation;
+}
+
 @implementation MapClusterController
 
 - (id)initWithMapView:(MKMapView *)mapView
@@ -84,6 +120,31 @@ MKMapRect MapClusterControllerAlignToCellSize(MKMapRect mapRect, double cellSize
     MKMapRect gridMapRect = MKMapRectInset(visibleMapRect, -_marginFactor * visibleMapRect.size.width, -_marginFactor * visibleMapRect.size.height);
     gridMapRect = MapClusterControllerAlignToCellSize(gridMapRect, cellSize);
     MKMapRect cellMapRect = MKMapRectMake(0, MKMapRectGetMinY(gridMapRect), cellSize, cellSize);
+    
+    // For each cell in the grid, pick one annotation to show
+    while (MKMapRectGetMinY(cellMapRect) < MKMapRectGetMaxY(gridMapRect)) {
+        cellMapRect.origin.x = MKMapRectGetMinX(gridMapRect);
+        
+        while (MKMapRectGetMinX(cellMapRect) < MKMapRectGetMaxX(gridMapRect)) {
+            NSMutableSet *allAnnotationsInCell = [[self.allAnnotationsMapView annotationsInMapRect:cellMapRect] mutableCopy];
+            if (allAnnotationsInCell.count > 0) {
+                NSMutableSet *visibleAnnotationsInCell = [self.mapView annotationsInMapRect:cellMapRect].mutableCopy;
+                MKUserLocation *userLocation = self.mapView.userLocation;
+                if (userLocation) {
+                    [visibleAnnotationsInCell removeObject:userLocation];
+                }
+                
+                MapClusterAnnotation *annotationForCell = MapClusterControllerFindAnnotation(cellMapRect, allAnnotationsInCell, visibleAnnotationsInCell);
+                annotationForCell.annotations = allAnnotationsInCell.allObjects;
+                
+                [visibleAnnotationsInCell removeObject:annotationForCell];
+                [self.mapView removeAnnotations:visibleAnnotationsInCell.allObjects];
+                [self.mapView addAnnotation:annotationForCell];
+            }
+            cellMapRect.origin.x += MKMapRectGetWidth(cellMapRect);
+        }
+        cellMapRect.origin.y += MKMapRectGetWidth(cellMapRect);
+    }
     
     if (completionHandler) {
         completionHandler();
