@@ -36,6 +36,15 @@
 
 @end
 
+MKMapRect MapClusterControllerAlignToCellSize(MKMapRect mapRect, double cellSize)
+{
+    double startX = floor(MKMapRectGetMinX(mapRect) / cellSize) * cellSize;
+    double startY = floor(MKMapRectGetMinY(mapRect) / cellSize) * cellSize;
+    double endX = ceil(MKMapRectGetMaxX(mapRect) / cellSize) * cellSize;
+    double endY = ceil(MKMapRectGetMaxY(mapRect) / cellSize) * cellSize;
+    return MKMapRectMake(startX, startY, endX - startX, endY - startY);
+}
+
 @implementation MapClusterController
 
 - (id)initWithMapView:(MKMapView *)mapView
@@ -46,6 +55,7 @@
         self.allAnnotationsMapView = [[MKMapView alloc] initWithFrame:CGRectZero];
         
         self.cellSize = 80;
+        self.marginFactor = 0.5;
     }
     return self;
 }
@@ -68,6 +78,12 @@
 {
     // Calculate cell size in map point units
     double cellSize = [self convertPointSize:self.cellSize toMapPointSizeFromView:self.mapView.superview];
+    
+    // Expand map rect and align to cell size to avoid popping when panning
+    MKMapRect visibleMapRect = self.mapView.visibleMapRect;
+    MKMapRect gridMapRect = MKMapRectInset(visibleMapRect, -_marginFactor * visibleMapRect.size.width, -_marginFactor * visibleMapRect.size.height);
+    gridMapRect = MapClusterControllerAlignToCellSize(gridMapRect, cellSize);
+    MKMapRect cellMapRect = MKMapRectMake(0, MKMapRectGetMinY(gridMapRect), cellSize, cellSize);
     
     if (completionHandler) {
         completionHandler();

@@ -29,6 +29,7 @@
 @interface MapClusterController : NSObject
 
 @property (nonatomic, assign) double cellSize;
+@property (nonatomic, assign) double marginFactor;
 
 - (id)initWithMapView:(MKMapView *)mapView;
 - (void)addAnnotations:(NSArray *)annotations;
