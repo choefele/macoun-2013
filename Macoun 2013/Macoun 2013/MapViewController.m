@@ -94,6 +94,11 @@
     [mapItem openInMapsWithLaunchOptions:nil];
 }
 
+- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
+{
+    [self.mapClusterController didAddAnnotationViews:views];
+}
+
 - (void)dataReader:(DataReader *)dataReader addAnnotations:(NSArray *)annotations
 {
     [self.mapClusterController addAnnotations:annotations];

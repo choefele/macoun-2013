@@ -34,5 +34,6 @@
 - (id)initWithMapView:(MKMapView *)mapView;
 - (void)addAnnotations:(NSArray *)annotations;
 - (void)updateAnnotationsWithCompletionHandler:(void (^)())completionHandler;
+- (void)didAddAnnotationViews:(NSArray *)annotationViews;
 
 @end

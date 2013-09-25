@@ -158,7 +158,7 @@ MapClusterAnnotation *MapClusterControllerFindAnnotation(MKMapRect cellMapRect, 
                 annotationForCell.annotations = allAnnotationsInCell.allObjects;
                 
                 [visibleAnnotationsInCell removeObject:annotationForCell];
-                [self.mapView removeAnnotations:visibleAnnotationsInCell.allObjects];
+                [self removeAnnotations:visibleAnnotationsInCell];
                 [self.mapView addAnnotation:annotationForCell];
             }
             cellMapRect.origin.x += MKMapRectGetWidth(cellMapRect);
@@ -168,6 +168,31 @@ MapClusterAnnotation *MapClusterControllerFindAnnotation(MKMapRect cellMapRect, 
     
     if (completionHandler) {
         completionHandler();
+    }
+}
+
+- (void)removeAnnotations:(NSSet *)annotations
+{
+    // Animate annotations that get removed
+    for (id<MKAnnotation> annotation in annotations) {
+        MKAnnotationView *annotationView = [self.mapView viewForAnnotation:annotation];
+        [UIView animateWithDuration:0.2 animations:^{
+            annotationView.alpha = 0.0;
+        } completion:^(BOOL finished) {
+            [self.mapView removeAnnotation:annotation];
+        }];
+    }
+}
+
+- (void)didAddAnnotationViews:(NSArray *)annotationViews
+{
+    // Animate annotations that get added
+    for (MKAnnotationView *annotationView in annotationViews)
+    {
+        annotationView.alpha = 0.0;
+        [UIView animateWithDuration:0.2 animations:^{
+            annotationView.alpha = 1.0;
+        }];
     }
 }
 
