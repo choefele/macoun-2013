@@ -10,8 +10,11 @@
 
 #import "DataReader.h"
 #import "DataReaderDelegate.h"
+#import "MapClusterController.h"
 
 @interface MapViewController ()<MKMapViewDelegate, DataReaderDelegate>
+
+@property (nonatomic, strong) MapClusterController *mapClusterController;
 
 @end
 
@@ -39,6 +42,9 @@
     DataReader *dataReader = [[DataReader alloc] init];
     dataReader.delegate = self;
     [dataReader startReading];
+    
+    // Create cluster controller
+    self.mapClusterController = [[MapClusterController alloc] initWithMapView:self.mapView];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
@@ -72,7 +78,7 @@
 
 - (void)dataReader:(DataReader *)dataReader addAnnotations:(NSArray *)annotations
 {
-    [self.mapView addAnnotations:annotations];
+    [self.mapClusterController addAnnotations:annotations];
 }
 
 @end
