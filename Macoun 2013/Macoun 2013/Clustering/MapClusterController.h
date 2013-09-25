@@ -28,6 +28,8 @@
 
 @interface MapClusterController : NSObject
 
+@property (nonatomic, assign) double cellSize;
+
 - (id)initWithMapView:(MKMapView *)mapView;
 - (void)addAnnotations:(NSArray *)annotations;
 - (void)updateAnnotationsWithCompletionHandler:(void (^)())completionHandler;

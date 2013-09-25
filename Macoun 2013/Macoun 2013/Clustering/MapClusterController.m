@@ -44,6 +44,8 @@
     if (self) {
         self.mapView = mapView;
         self.allAnnotationsMapView = [[MKMapView alloc] initWithFrame:CGRectZero];
+        
+        self.cellSize = 80;
     }
     return self;
 }
@@ -54,8 +56,19 @@
     [self updateAnnotationsWithCompletionHandler:NULL];
 }
 
+- (double)convertPointSize:(double)pointSize toMapPointSizeFromView:(UIView *)view
+{
+    CLLocationCoordinate2D leftCoordinate = [self.mapView convertPoint:CGPointZero toCoordinateFromView:view];
+    CLLocationCoordinate2D rightCoordinate = [self.mapView convertPoint:CGPointMake(pointSize, 0) toCoordinateFromView:view];
+    double cellSize = MKMapPointForCoordinate(rightCoordinate).x - MKMapPointForCoordinate(leftCoordinate).x;
+    return cellSize;
+}
+
 - (void)updateAnnotationsWithCompletionHandler:(void (^)())completionHandler
 {
+    // Calculate cell size in map point units
+    double cellSize = [self convertPointSize:self.cellSize toMapPointSizeFromView:self.mapView.superview];
+    
     if (completionHandler) {
         completionHandler();
     }
