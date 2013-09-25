@@ -31,6 +31,9 @@
 
 @interface MapClusterController()
 
+@property (strong, nonatomic) MKMapView *mapView;
+@property (strong, nonatomic) MKMapView *allAnnotationsMapView;
+
 @end
 
 @implementation MapClusterController
@@ -39,12 +42,16 @@
 {
     self = [super init];
     if (self) {
+        self.mapView = mapView;
+        self.allAnnotationsMapView = [[MKMapView alloc] initWithFrame:CGRectZero];
     }
     return self;
 }
 
 - (void)addAnnotations:(NSArray *)annotations
 {
+    [self.allAnnotationsMapView addAnnotations:annotations];
+    [self updateAnnotationsWithCompletionHandler:NULL];
 }
 
 - (void)updateAnnotationsWithCompletionHandler:(void (^)())completionHandler
