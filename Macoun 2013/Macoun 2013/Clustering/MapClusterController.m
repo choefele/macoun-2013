@@ -104,9 +104,19 @@ MapClusterAnnotation *MapClusterControllerFindAnnotation(MKMapRect cellMapRect, 
 
 - (double)convertPointSize:(double)pointSize toMapPointSizeFromView:(UIView *)view
 {
+    // Convert points to coordinates
     CLLocationCoordinate2D leftCoordinate = [self.mapView convertPoint:CGPointZero toCoordinateFromView:view];
     CLLocationCoordinate2D rightCoordinate = [self.mapView convertPoint:CGPointMake(pointSize, 0) toCoordinateFromView:view];
-    double cellSize = MKMapPointForCoordinate(rightCoordinate).x - MKMapPointForCoordinate(leftCoordinate).x;
+    
+    // Convert coordinates to map points
+    MKMapPoint leftMapPoint = MKMapPointForCoordinate(leftCoordinate);
+    MKMapPoint rightMapPoint = MKMapPointForCoordinate(rightCoordinate);
+    
+    // Calculate distance between map points
+    double xd = leftMapPoint.x - rightMapPoint.x;
+    double yd = leftMapPoint.y - rightMapPoint.y;
+    double cellSize = sqrt(xd*xd + yd*yd);
+    
     return cellSize;
 }
 
