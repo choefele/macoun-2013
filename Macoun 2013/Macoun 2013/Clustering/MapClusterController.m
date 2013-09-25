@@ -112,6 +112,9 @@ MapClusterAnnotation *MapClusterControllerFindAnnotation(MKMapRect cellMapRect, 
 
 - (void)updateAnnotationsWithCompletionHandler:(void (^)())completionHandler
 {
+//    [self.mapView removeOverlays:self.mapView.overlays];
+//    MKMapPoint points[4];
+
     // Calculate cell size in map point units
     double cellSize = [self convertPointSize:self.cellSize toMapPointSizeFromView:self.mapView.superview];
     
@@ -126,6 +129,13 @@ MapClusterAnnotation *MapClusterControllerFindAnnotation(MKMapRect cellMapRect, 
         cellMapRect.origin.x = MKMapRectGetMinX(gridMapRect);
         
         while (MKMapRectGetMinX(cellMapRect) < MKMapRectGetMaxX(gridMapRect)) {
+//            points[0] = MKMapPointMake(MKMapRectGetMinX(cellMapRect), MKMapRectGetMinY(cellMapRect));
+//            points[1] = MKMapPointMake(MKMapRectGetMaxX(cellMapRect), MKMapRectGetMinY(cellMapRect));
+//            points[2] = MKMapPointMake(MKMapRectGetMaxX(cellMapRect), MKMapRectGetMaxY(cellMapRect));
+//            points[3] = MKMapPointMake(MKMapRectGetMinX(cellMapRect), MKMapRectGetMaxY(cellMapRect));
+//            MKPolygon* poly = [MKPolygon polygonWithPoints:points count:4];
+//            [self.mapView addOverlay:poly];
+
             NSMutableSet *allAnnotationsInCell = [[self.allAnnotationsMapView annotationsInMapRect:cellMapRect] mutableCopy];
             if (allAnnotationsInCell.count > 0) {
                 NSMutableSet *visibleAnnotationsInCell = [self.mapView annotationsInMapRect:cellMapRect].mutableCopy;

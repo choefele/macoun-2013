@@ -28,7 +28,7 @@
     
     // Show Berlin on map
     CLLocationCoordinate2D location = CLLocationCoordinate2DMake(52.516221, 13.377829);
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location, 1000, 1000);
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location, 45000, 45000);
     self.mapView.region = region;
     
 //    // Add pin for Brandenburg Gate
@@ -70,6 +70,19 @@
     }
     
     return annotationView;
+}
+
+- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id<MKOverlay>)overlay
+{
+    MKOverlayView *view;
+    if ([overlay isKindOfClass:MKPolygon.class]) {
+        MKPolygonView *polygonView = [[MKPolygonView alloc] initWithPolygon:(MKPolygon *)overlay];
+        polygonView.strokeColor = [UIColor.blueColor colorWithAlphaComponent:0.7];
+        polygonView.lineWidth = 1;
+        view = polygonView;
+    }
+    
+    return view;
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
