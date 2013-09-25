@@ -26,6 +26,8 @@
 		6247075317EEEC2600A2A82A /* DataReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6247075117EEEC2600A2A82A /* DataReader.m */; };
 		6247075617EEEC7100A2A82A /* Annotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6247075517EEEC7100A2A82A /* Annotation.m */; };
 		6249398617F1A1F3008070AD /* Stolpersteine.json in Resources */ = {isa = PBXBuildFile; fileRef = 6249398517F1A1F3008070AD /* Stolpersteine.json */; };
+		62664EB217F33726003B3B00 /* MapClusterAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 62664EAF17F33726003B3B00 /* MapClusterAnnotation.m */; };
+		62664EB317F33726003B3B00 /* MapClusterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62664EB117F33726003B3B00 /* MapClusterController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,10 @@
 		6247075417EEEC7100A2A82A /* Annotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Annotation.h; sourceTree = "<group>"; };
 		6247075517EEEC7100A2A82A /* Annotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Annotation.m; sourceTree = "<group>"; };
 		6249398517F1A1F3008070AD /* Stolpersteine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Stolpersteine.json; path = "Macoun 2013/Stolpersteine.json"; sourceTree = "<group>"; };
+		62664EAE17F33726003B3B00 /* MapClusterAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapClusterAnnotation.h; sourceTree = "<group>"; };
+		62664EAF17F33726003B3B00 /* MapClusterAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapClusterAnnotation.m; sourceTree = "<group>"; };
+		62664EB017F33726003B3B00 /* MapClusterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapClusterController.h; sourceTree = "<group>"; };
+		62664EB117F33726003B3B00 /* MapClusterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapClusterController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +144,7 @@
 				6247075017EEEC2600A2A82A /* DataReader.h */,
 				6247075117EEEC2600A2A82A /* DataReader.m */,
 				6247075217EEEC2600A2A82A /* DataReaderDelegate.h */,
+				62664EAD17F33726003B3B00 /* Clustering */,
 				6200BA0017EED8C000F8C618 /* Main.storyboard */,
 				6200BA0617EED8C000F8C618 /* Images.xcassets */,
 				6200B9F517EED8C000F8C618 /* Supporting Files */,
@@ -172,6 +179,17 @@
 				6200BA1617EED8C000F8C618 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		62664EAD17F33726003B3B00 /* Clustering */ = {
+			isa = PBXGroup;
+			children = (
+				62664EAE17F33726003B3B00 /* MapClusterAnnotation.h */,
+				62664EAF17F33726003B3B00 /* MapClusterAnnotation.m */,
+				62664EB017F33726003B3B00 /* MapClusterController.h */,
+				62664EB117F33726003B3B00 /* MapClusterController.m */,
+			);
+			path = Clustering;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,7 +294,9 @@
 				6247075617EEEC7100A2A82A /* Annotation.m in Sources */,
 				6247075317EEEC2600A2A82A /* DataReader.m in Sources */,
 				6200B9FF17EED8C000F8C618 /* AppDelegate.m in Sources */,
+				62664EB317F33726003B3B00 /* MapClusterController.m in Sources */,
 				6200B9FB17EED8C000F8C618 /* main.m in Sources */,
+				62664EB217F33726003B3B00 /* MapClusterAnnotation.m in Sources */,
 				6200BA2517EED9B600F8C618 /* MapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
