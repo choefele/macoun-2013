@@ -4,19 +4,21 @@
 <dict>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
-		<string>ClassImplementation</string>
+		<string>CodeBlock</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
-{
-    [self.mapClusterController didAddAnnotationViews:views];
-}</string>
+	<string>    // Deselect all annotations when zooming in/out.
+    BOOL hasZoomed = !fequal(mapView.region.span.longitudeDelta, self.regionSpanBeforeChange.longitudeDelta);
+    if (hasZoomed) {
+        [self deselectAllAnnotations];
+    }
+</string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>9D243039-998A-4BDB-9F58-DFA17674612A</string>
+	<string>63C0D2E3-9F84-499E-B902-3D2DA405D6E2</string>
 	<key>IDECodeSnippetLanguage</key>
 	<string>Xcode.SourceCodeLanguage.Objective-C</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>Animation 2 - didAddAnnotationViews:</string>
+	<string>Selection 2 - hasZoomed</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>

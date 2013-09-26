@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>ClassImplementation</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>- (id&lt;MKAnnotation&gt;)clusterAnnotationForAnnotation:(Annotation *)annotation inMapRect:(MKMapRect)mapRect
+{
+    id&lt;MKAnnotation&gt; annotationResult = nil;
+    
+    NSSet *mapViewAnnotations = [self.mapView annotationsInMapRect:mapRect];
+    for (id&lt;MKAnnotation&gt; mapViewAnnotation in mapViewAnnotations) {
+        if ([mapViewAnnotation isKindOfClass:MapClusterAnnotation.class]) {
+            MapClusterAnnotation *mapClusterAnnotation = (MapClusterAnnotation *)mapViewAnnotation;
+            NSUInteger index = [mapClusterAnnotation.annotations indexOfObject:annotation];
+            if (index != NSNotFound) {
+                annotationResult = mapViewAnnotation;
+                break;
+            }
+        }
+    }
+    
+    return annotationResult;
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>3DD9C674-9CED-4E17-B0F1-EDF753C5FB8D</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Selection 7 - clusterAnnotationForAnnotation</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>CodeBlock</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>    // Zoom in to selected annoation
+    self.annotationToSelect = self.annotations[indexPath.row];
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(self.annotationToSelect.coordinate, 400, 400);
+    [self.mapView setRegion:region animated:YES];
+    if ([self isCoordinateUpToDate:region.center]) {
+        // Manually call update methods because region won't change
+        [self mapView:self.mapView regionWillChangeAnimated:YES];
+        [self mapView:self.mapView regionDidChangeAnimated:YES];
+    }
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>7A73EC97-95D7-4742-A53B-746CAAA634CD</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Selection 4 - Zoom in</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

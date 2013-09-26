@@ -7,16 +7,17 @@
 		<string>ClassImplementation</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
+	<string>- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
 {
-    [self.mapClusterController didAddAnnotationViews:views];
-}</string>
+    self.regionSpanBeforeChange = mapView.region.span;
+}
+</string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>9D243039-998A-4BDB-9F58-DFA17674612A</string>
+	<string>8FFD4F58-1734-4E52-8750-4EC047DF970F</string>
 	<key>IDECodeSnippetLanguage</key>
 	<string>Xcode.SourceCodeLanguage.Objective-C</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>Animation 2 - didAddAnnotationViews:</string>
+	<string>Selection 1 - regionWillChangeAnimated</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>

@@ -7,16 +7,21 @@
 		<string>ClassImplementation</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
+	<string>#define fequal(a, b) (fabs((a) - (b)) &lt; FLT_EPSILON)
+
+- (void)deselectAllAnnotations
 {
-    [self.mapClusterController didAddAnnotationViews:views];
+    NSArray *selectedAnnotations = self.mapView.selectedAnnotations;
+    for (id&lt;MKAnnotation&gt; selectedAnnotation in selectedAnnotations) {
+        [self.mapView deselectAnnotation:selectedAnnotation animated:YES];
+    }
 }</string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>9D243039-998A-4BDB-9F58-DFA17674612A</string>
+	<string>C35ED843-6945-4CE1-922A-A3A272C9B4CA</string>
 	<key>IDECodeSnippetLanguage</key>
 	<string>Xcode.SourceCodeLanguage.Objective-C</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>Animation 2 - didAddAnnotationViews:</string>
+	<string>Selection 3 - deselectAllAnnotations</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>

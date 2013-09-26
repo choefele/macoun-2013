@@ -7,16 +7,17 @@
 		<string>ClassImplementation</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
+	<string>- (BOOL)isCoordinateUpToDate:(CLLocationCoordinate2D)coordinate
 {
-    [self.mapClusterController didAddAnnotationViews:views];
+    BOOL isCoordinateUpToDate = fequal(coordinate.latitude, self.mapView.region.center.latitude) &amp;&amp; fequal(coordinate.longitude, self.mapView.region.center.longitude);
+    return isCoordinateUpToDate;
 }</string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>9D243039-998A-4BDB-9F58-DFA17674612A</string>
+	<string>80C5DBBC-C07B-449C-BE21-7974E9DE7ADA</string>
 	<key>IDECodeSnippetLanguage</key>
 	<string>Xcode.SourceCodeLanguage.Objective-C</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>Animation 2 - didAddAnnotationViews:</string>
+	<string>Selection 5 - isCoordinateUpToDate</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>
