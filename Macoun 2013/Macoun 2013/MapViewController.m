@@ -19,6 +19,7 @@
 @property (nonatomic, strong) MapClusterController *mapClusterController;
 @property (nonatomic, strong) NSMutableArray *annotations;
 @property (nonatomic, assign) MKCoordinateSpan regionSpanBeforeChange;
+@property (nonatomic, strong) Annotation *annotationToSelect;
 
 @end
 
@@ -160,10 +161,26 @@
     return self.annotations.count;
 }
 
+- (BOOL)isCoordinateUpToDate:(CLLocationCoordinate2D)coordinate
+{
+    BOOL isCoordinateUpToDate = fequal(coordinate.latitude, self.mapView.region.center.latitude) && fequal(coordinate.longitude, self.mapView.region.center.longitude);
+    return isCoordinateUpToDate;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.searchDisplayController setActive:NO animated:YES];
     [self deselectAllAnnotations];
+    
+    // Zoom in to selected annoation
+    self.annotationToSelect = self.annotations[indexPath.row];
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(self.annotationToSelect.coordinate, 400, 400);
+    [self.mapView setRegion:region animated:YES];
+    if ([self isCoordinateUpToDate:region.center]) {
+        // Manually call update methods because region won't change
+        [self mapView:self.mapView regionWillChangeAnimated:YES];
+        [self mapView:self.mapView regionDidChangeAnimated:YES];
+    }
 }
 
 @end
