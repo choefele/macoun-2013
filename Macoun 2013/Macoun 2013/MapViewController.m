@@ -140,6 +140,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    // Dismiss search display controller
     [self.searchDisplayController setActive:NO animated:YES];
 }
 
