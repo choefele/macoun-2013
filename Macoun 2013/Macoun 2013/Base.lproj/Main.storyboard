@@ -20,15 +20,41 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rzs-jd-cwD">
+                                <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="DeO-Zj-eVT"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="BaT-1v-stl"/>
                     <connections>
                         <outlet property="mapView" destination="VPf-Xy-cmG" id="Dq5-uD-C0K"/>
+                        <outlet property="searchDisplayController" destination="d7M-yl-WLr" id="beW-aZ-PSH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="Ocb-Ha-nt4">
+                    <connections>
+                        <outlet property="delegate" destination="vXZ-lx-hvc" id="mUH-rK-iHG"/>
+                        <outlet property="searchContentsController" destination="vXZ-lx-hvc" id="xih-ng-KEU"/>
+                        <outlet property="searchResultsDataSource" destination="vXZ-lx-hvc" id="cde-SN-F16"/>
+                        <outlet property="searchResultsDelegate" destination="vXZ-lx-hvc" id="dw4-TO-8IE"/>
+                    </connections>
+                </searchDisplayController>
+                <searchDisplayController id="d7M-yl-WLr">
+                    <connections>
+                        <outlet property="delegate" destination="vXZ-lx-hvc" id="sgf-bP-2g4"/>
+                        <outlet property="searchBar" destination="rzs-jd-cwD" id="vpj-38-0mu"/>
+                        <outlet property="searchContentsController" destination="vXZ-lx-hvc" id="7Jm-Ue-5ZM"/>
+                        <outlet property="searchResultsDataSource" destination="vXZ-lx-hvc" id="aht-iV-TXT"/>
+                        <outlet property="searchResultsDelegate" destination="vXZ-lx-hvc" id="7n6-il-0mn"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="936" y="138"/>
         </scene>

@@ -27,4 +27,10 @@
 
 @implementation MapClusterAnnotation
 
+- (NSString *)title
+{
+    NSString *format = self.annotations.count > 1 ? @"%u annotations" : @"%u annotation";
+    return [NSString stringWithFormat:format, self.annotations.count];
+}
+
 @end

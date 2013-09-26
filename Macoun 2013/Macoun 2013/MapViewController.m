@@ -11,10 +11,13 @@
 #import "DataReader.h"
 #import "DataReaderDelegate.h"
 #import "MapClusterController.h"
+#import "MapClusterAnnotation.h"
+#import "Annotation.h"
 
-@interface MapViewController ()<MKMapViewDelegate, DataReaderDelegate>
+@interface MapViewController ()<MKMapViewDelegate, UISearchBarDelegate, DataReaderDelegate>
 
 @property (nonatomic, strong) MapClusterController *mapClusterController;
+@property (nonatomic, strong) NSMutableArray *annotations;
 
 @end
 
@@ -25,6 +28,9 @@
     [super viewDidLoad];
     
     self.mapView.delegate = self;
+    [self.searchDisplayController.searchBar removeFromSuperview];
+    self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
+    self.annotations = [NSMutableArray arrayWithCapacity:100];
     
     // Show Berlin on map
     CLLocationCoordinate2D location = CLLocationCoordinate2DMake(52.516221, 13.377829);
@@ -56,15 +62,12 @@
 {
     MKAnnotationView *annotationView;
     
-    if ([annotation isKindOfClass:MKPointAnnotation.class]) {
+    if ([annotation isKindOfClass:MapClusterAnnotation.class]) {
         static NSString * const pinIdentifier = @"pinIdentifier";
         MKPinAnnotationView *pinAnnotationView = (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:pinIdentifier];
         if (pinAnnotationView == nil) {
             pinAnnotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pinIdentifier];
             pinAnnotationView.canShowCallout = YES;
-            
-            UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-            pinAnnotationView.rightCalloutAccessoryView = rightButton;
         }
         annotationView = pinAnnotationView;
     }
@@ -101,7 +104,43 @@
 
 - (void)dataReader:(DataReader *)dataReader addAnnotations:(NSArray *)annotations
 {
+    [self.annotations addObjectsFromArray:annotations];
     [self.mapClusterController addAnnotations:annotations];
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    searchBar.showsCancelButton = YES;
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+    searchBar.showsCancelButton = NO;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString * const cellIdentifier = @"cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+    }
+    
+    Annotation *annotation = self.annotations[indexPath.row];
+    cell.textLabel.text = annotation.title;
+    
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.annotations.count;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.searchDisplayController setActive:NO animated:YES];
 }
 
 @end
