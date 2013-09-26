@@ -18,6 +18,7 @@
 
 @property (nonatomic, strong) MapClusterController *mapClusterController;
 @property (nonatomic, strong) NSMutableArray *annotations;
+@property (nonatomic, assign) MKCoordinateSpan regionSpanBeforeChange;
 
 @end
 
@@ -53,8 +54,29 @@
     self.mapClusterController = [[MapClusterController alloc] initWithMapView:self.mapView];
 }
 
+#define fequal(a, b) (fabs((a) - (b)) < FLT_EPSILON)
+
+- (void)deselectAllAnnotations
+{
+    NSArray *selectedAnnotations = self.mapView.selectedAnnotations;
+    for (id<MKAnnotation> selectedAnnotation in selectedAnnotations) {
+        [self.mapView deselectAnnotation:selectedAnnotation animated:YES];
+    }
+}
+
+- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
+{
+    self.regionSpanBeforeChange = mapView.region.span;
+}
+
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
+    // Deselect all annotations when zooming in/out.
+    BOOL hasZoomed = !fequal(mapView.region.span.longitudeDelta, self.regionSpanBeforeChange.longitudeDelta);
+    if (hasZoomed) {
+        [self deselectAllAnnotations];
+    }
+
     [self.mapClusterController updateAnnotationsWithCompletionHandler:NULL];
 }
 
@@ -141,6 +163,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.searchDisplayController setActive:NO animated:YES];
+    [self deselectAllAnnotations];
 }
 
 @end
