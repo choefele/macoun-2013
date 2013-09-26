@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSMutableArray *annotations;
 @property (nonatomic, assign) MKCoordinateSpan regionSpanBeforeChange;
 @property (nonatomic, strong) Annotation *annotationToSelect;
+@property (nonatomic, strong) MapClusterAnnotation *clusterAnnotationToSelect;
 
 @end
 
@@ -65,6 +66,25 @@
     }
 }
 
+- (id<MKAnnotation>)clusterAnnotationForAnnotation:(Annotation *)annotation inMapRect:(MKMapRect)mapRect
+{
+    id<MKAnnotation> annotationResult = nil;
+    
+    NSSet *mapViewAnnotations = [self.mapView annotationsInMapRect:mapRect];
+    for (id<MKAnnotation> mapViewAnnotation in mapViewAnnotations) {
+        if ([mapViewAnnotation isKindOfClass:MapClusterAnnotation.class]) {
+            MapClusterAnnotation *mapClusterAnnotation = (MapClusterAnnotation *)mapViewAnnotation;
+            NSUInteger index = [mapClusterAnnotation.annotations indexOfObject:annotation];
+            if (index != NSNotFound) {
+                annotationResult = mapViewAnnotation;
+                break;
+            }
+        }
+    }
+    
+    return annotationResult;
+}
+
 - (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
 {
     self.regionSpanBeforeChange = mapView.region.span;
@@ -78,7 +98,31 @@
         [self deselectAllAnnotations];
     }
 
-    [self.mapClusterController updateAnnotationsWithCompletionHandler:NULL];
+    [self.mapClusterController updateAnnotationsWithCompletionHandler:^{
+        if (self.annotationToSelect) {
+            // Map has zoomed to selected annotation; search for cluster annotation that contains this annotation
+            id<MKAnnotation> annotation = [self clusterAnnotationForAnnotation:self.annotationToSelect inMapRect:mapView.visibleMapRect];
+            self.annotationToSelect = nil;
+            
+            if ([self isCoordinateUpToDate:annotation.coordinate]) {
+                // Select immediately since region won't change
+                [self.mapView selectAnnotation:annotation animated:YES];
+            } else {
+                // Actual selection happens in next call to mapView:regionDidChangeAnimated:
+                self.clusterAnnotationToSelect = annotation;
+                
+                // Dispatch async to avoid calling regionDidChangeAnimated immediately
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // No zooming, only panning. Otherwise, stolperstein might change to a different cluster annotation
+                    [self.mapView setCenterCoordinate:annotation.coordinate animated:NO];
+                });
+            }
+        } else if (self.clusterAnnotationToSelect) {
+            // Map has zoomed to annotation
+            [self.mapView selectAnnotation:self.clusterAnnotationToSelect animated:YES];
+            self.clusterAnnotationToSelect = nil;
+        }
+    }];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
