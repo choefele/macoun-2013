@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
-                            <searchBar contentMode="redraw" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rzs-jd-cwD">
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="rzs-jd-cwD">
                                 <rect key="frame" x="0.0" y="64" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -31,12 +31,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="VPf-Xy-cmG" firstAttribute="leading" secondItem="rzs-jd-cwD" secondAttribute="leading" id="5W8-9g-yqc"/>
-                            <constraint firstItem="VPf-Xy-cmG" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="QWJ-mH-4sw"/>
-                            <constraint firstItem="VPf-Xy-cmG" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="UZ0-iB-Vyq"/>
-                            <constraint firstItem="VPf-Xy-cmG" firstAttribute="trailing" secondItem="rzs-jd-cwD" secondAttribute="trailing" id="WJu-3c-PnS"/>
-                            <constraint firstAttribute="trailing" secondItem="VPf-Xy-cmG" secondAttribute="trailing" id="hCe-bW-s1K"/>
-                            <constraint firstAttribute="bottom" secondItem="VPf-Xy-cmG" secondAttribute="bottom" id="xAs-M7-xnm"/>
+                            <constraint firstItem="rzs-jd-cwD" firstAttribute="top" secondItem="LNh-9Y-olO" secondAttribute="bottom" id="DyL-o0-ym0"/>
+                            <constraint firstItem="VPf-Xy-cmG" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="J6i-55-ZJd"/>
+                            <constraint firstItem="VPf-Xy-cmG" firstAttribute="trailing" secondItem="rzs-jd-cwD" secondAttribute="trailing" id="Mvw-IU-M7c"/>
+                            <constraint firstAttribute="bottom" secondItem="VPf-Xy-cmG" secondAttribute="bottom" id="QE0-G3-gsH"/>
+                            <constraint firstItem="VPf-Xy-cmG" firstAttribute="leading" secondItem="rzs-jd-cwD" secondAttribute="leading" id="adR-x3-79I"/>
+                            <constraint firstAttribute="trailing" secondItem="VPf-Xy-cmG" secondAttribute="trailing" id="bTD-Ys-E46"/>
+                            <constraint firstItem="VPf-Xy-cmG" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="sBn-e9-emR"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="BaT-1v-stl"/>
