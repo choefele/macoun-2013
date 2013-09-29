@@ -23,7 +23,7 @@
 //  THE SOFTWARE.
 //
 
-// Based on https://github.com/MarcoSero/MSMapClustering by MarcoSero/WWDC 2010
+// Based on https://github.com/MarcoSero/MSMapClustering by MarcoSero/WWDC 2011, Session 111
 
 #import "MapClusterController.h"
 
