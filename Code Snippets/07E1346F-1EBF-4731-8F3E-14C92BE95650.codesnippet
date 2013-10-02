@@ -2,19 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>IDECodeSnippetCompletionPrefix</key>
-	<string>clustering 9</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
-		<string>All</string>
+		<string>CodeBlock</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>// For each cell in the grid, pick one annotation to show
-    while (MKMapRectGetMinY(cellMapRect) &lt; MKMapRectGetMaxY(gridMapRect)) {
-        cellMapRect.origin.x = MKMapRectGetMinX(gridMapRect);
-        
-        while (MKMapRectGetMinX(cellMapRect) &lt; MKMapRectGetMaxX(gridMapRect)) {
-            NSMutableSet *allAnnotationsInCell = [[self.allAnnotationsMapView annotationsInMapRect:cellMapRect] mutableCopy];
+	<string>NSMutableSet *allAnnotationsInCell = [[self.allAnnotationsMapView annotationsInMapRect:cellMapRect] mutableCopy];
             if (allAnnotationsInCell.count &gt; 0) {
                 NSMutableSet *visibleAnnotationsInCell = [self.mapView annotationsInMapRect:cellMapRect].mutableCopy;
                 MKUserLocation *userLocation = self.mapView.userLocation;
@@ -28,17 +21,13 @@
                 [visibleAnnotationsInCell removeObject:annotationForCell];
                 [self.mapView removeAnnotations:visibleAnnotationsInCell.allObjects];
                 [self.mapView addAnnotation:annotationForCell];
-            }
-            cellMapRect.origin.x += MKMapRectGetWidth(cellMapRect);
-        }
-        cellMapRect.origin.y += MKMapRectGetWidth(cellMapRect);
-    }</string>
+            }</string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>EE9E7C14-77A7-44A4-B94B-61B8AB75A4AA</string>
+	<string>07E1346F-1EBF-4731-8F3E-14C92BE95650</string>
 	<key>IDECodeSnippetLanguage</key>
 	<string>Xcode.SourceCodeLanguage.Objective-C</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>Clustering 9 - iterate grid rects</string>
+	<string>Clustering 14 - inner loop</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>
