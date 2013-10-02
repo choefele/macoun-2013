@@ -14,13 +14,9 @@
 #import "MapClusterAnnotation.h"
 #import "Annotation.h"
 
-@interface MapViewController ()<MKMapViewDelegate, UISearchBarDelegate, DataReaderDelegate>
+@interface MapViewController ()<MKMapViewDelegate, DataReaderDelegate>
 
 @property (nonatomic, strong) MapClusterController *mapClusterController;
-@property (nonatomic, strong) NSMutableArray *annotations;
-@property (nonatomic, assign) MKCoordinateSpan regionSpanBeforeChange;
-@property (nonatomic, strong) Annotation *annotationToSelect;
-@property (nonatomic, strong) MapClusterAnnotation *clusterAnnotationToSelect;
 
 @end
 
@@ -33,7 +29,6 @@
     self.mapView.delegate = self;
     [self.searchDisplayController.searchBar removeFromSuperview];
     self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
-    self.annotations = [NSMutableArray arrayWithCapacity:100];
     
     // Show Berlin on map
     CLLocationCoordinate2D location = CLLocationCoordinate2DMake(52.516221, 13.377829);
@@ -56,73 +51,9 @@
     self.mapClusterController = [[MapClusterController alloc] initWithMapView:self.mapView];
 }
 
-#define fequal(a, b) (fabs((a) - (b)) < FLT_EPSILON)
-
-- (void)deselectAllAnnotations
-{
-    NSArray *selectedAnnotations = self.mapView.selectedAnnotations;
-    for (id<MKAnnotation> selectedAnnotation in selectedAnnotations) {
-        [self.mapView deselectAnnotation:selectedAnnotation animated:YES];
-    }
-}
-
-- (id<MKAnnotation>)clusterAnnotationForAnnotation:(Annotation *)annotation inMapRect:(MKMapRect)mapRect
-{
-    id<MKAnnotation> annotationResult = nil;
-    
-    NSSet *mapViewAnnotations = [self.mapView annotationsInMapRect:mapRect];
-    for (id<MKAnnotation> mapViewAnnotation in mapViewAnnotations) {
-        if ([mapViewAnnotation isKindOfClass:MapClusterAnnotation.class]) {
-            MapClusterAnnotation *mapClusterAnnotation = (MapClusterAnnotation *)mapViewAnnotation;
-            NSUInteger index = [mapClusterAnnotation.annotations indexOfObject:annotation];
-            if (index != NSNotFound) {
-                annotationResult = mapViewAnnotation;
-                break;
-            }
-        }
-    }
-    
-    return annotationResult;
-}
-
-- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
-{
-    self.regionSpanBeforeChange = mapView.region.span;
-}
-
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
-    // Deselect all annotations when zooming in/out.
-    BOOL hasZoomed = !fequal(mapView.region.span.longitudeDelta, self.regionSpanBeforeChange.longitudeDelta);
-    if (hasZoomed) {
-        [self deselectAllAnnotations];
-    }
-
-    [self.mapClusterController updateAnnotationsWithCompletionHandler:^{
-        if (self.annotationToSelect) {
-            // Map has zoomed to selected annotation; search for cluster annotation that contains this annotation
-            id<MKAnnotation> annotation = [self clusterAnnotationForAnnotation:self.annotationToSelect inMapRect:mapView.visibleMapRect];
-            self.annotationToSelect = nil;
-            
-            if ([self isCoordinateUpToDate:annotation.coordinate]) {
-                // Select immediately since region won't change
-                [self.mapView selectAnnotation:annotation animated:YES];
-            } else {
-                // Actual selection happens in next call to mapView:regionDidChangeAnimated:
-                self.clusterAnnotationToSelect = annotation;
-                
-                // Dispatch async to avoid calling regionDidChangeAnimated immediately
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    // No zooming, only panning. Otherwise, stolperstein might change to a different cluster annotation
-                    [self.mapView setCenterCoordinate:annotation.coordinate animated:NO];
-                });
-            }
-        } else if (self.clusterAnnotationToSelect) {
-            // Map has zoomed to annotation
-            [self.mapView selectAnnotation:self.clusterAnnotationToSelect animated:YES];
-            self.clusterAnnotationToSelect = nil;
-        }
-    }];
+    [self.mapClusterController updateAnnotationsWithCompletionHandler:NULL];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
@@ -171,60 +102,7 @@
 
 - (void)dataReader:(DataReader *)dataReader addAnnotations:(NSArray *)annotations
 {
-    [self.annotations addObjectsFromArray:annotations];
     [self.mapClusterController addAnnotations:annotations];
-}
-
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
-{
-    searchBar.showsCancelButton = YES;
-}
-
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
-{
-    searchBar.showsCancelButton = NO;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString * const cellIdentifier = @"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleGray;
-    }
-    
-    Annotation *annotation = self.annotations[indexPath.row];
-    cell.textLabel.text = annotation.title;
-    
-    return cell;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return self.annotations.count;
-}
-
-- (BOOL)isCoordinateUpToDate:(CLLocationCoordinate2D)coordinate
-{
-    BOOL isCoordinateUpToDate = fequal(coordinate.latitude, self.mapView.region.center.latitude) && fequal(coordinate.longitude, self.mapView.region.center.longitude);
-    return isCoordinateUpToDate;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self.searchDisplayController setActive:NO animated:YES];
-    [self deselectAllAnnotations];
-    
-    // Zoom in to selected annoation
-    self.annotationToSelect = self.annotations[indexPath.row];
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(self.annotationToSelect.coordinate, 400, 400);
-    [self.mapView setRegion:region animated:YES];
-    if ([self isCoordinateUpToDate:region.center]) {
-        // Manually call update methods because region won't change
-        [self mapView:self.mapView regionWillChangeAnimated:YES];
-        [self mapView:self.mapView regionDidChangeAnimated:YES];
-    }
 }
 
 @end
