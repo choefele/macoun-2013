@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>clustering 14</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>CodeBlock</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>NSMutableSet *allAnnotationsInCell = [[self.allAnnotationsMapView annotationsInMapRect:cellMapRect] mutableCopy];
+            if (allAnnotationsInCell.count &gt; 0) {
+                NSMutableSet *visibleAnnotationsInCell = [self.mapView annotationsInMapRect:cellMapRect].mutableCopy;
+                MKUserLocation *userLocation = self.mapView.userLocation;
+                if (userLocation) {
+                    [visibleAnnotationsInCell removeObject:userLocation];
+                }
+                
+                MapClusterAnnotation *annotationForCell = MapClusterControllerFindAnnotation(cellMapRect, allAnnotationsInCell, visibleAnnotationsInCell);
+                annotationForCell.annotations = allAnnotationsInCell.allObjects;
+                
+                [visibleAnnotationsInCell removeObject:annotationForCell];
+                [self.mapView removeAnnotations:visibleAnnotationsInCell.allObjects];
+                [self.mapView addAnnotation:annotationForCell];
+            }</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>BD2D135F-C732-4895-B628-E7CA34FAA4FA</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Clustering 14 - inner</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>
