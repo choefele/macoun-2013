@@ -6,7 +6,7 @@
 	<string>clustering 9</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
-		<string>CodeBlock</string>
+		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
 	<string>// For each cell in the grid, pick one annotation to show
